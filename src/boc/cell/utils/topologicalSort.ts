@@ -37,10 +37,11 @@ export function topologicalSort(src: Cell) {
             throw Error('Not a DAG');
         }
         tempMark.add(hash);
-        for (let c of allCells.get(hash)!.refs) {
-            visit(c);
+        let refs = allCells.get(hash)!.refs;
+        for (let ci = refs.length - 1; ci >= 0; ci--) {
+            visit(refs[ci]);
         }
-        sorted.unshift(hash);
+        sorted.push(hash);
         tempMark.delete(hash);
         notPermCells.delete(hash);
     }
@@ -51,11 +52,12 @@ export function topologicalSort(src: Cell) {
 
     let indexes = new Map<string, number>();
     for (let i = 0; i < sorted.length; i++) {
-        indexes.set(sorted[i], i);
+        indexes.set(sorted[sorted.length-i-1], i);
     }
 
     let result: { cell: Cell, refs: number[] }[] = [];
-    for (let ent of sorted) {
+    for (let i = sorted.length - 1; i >= 0; i--) {
+        let ent = sorted[i];
         const rrr = allCells.get(ent)!;
         result.push({ cell: rrr.cell, refs: rrr.refs.map((v) => indexes.get(v)!) });
     }

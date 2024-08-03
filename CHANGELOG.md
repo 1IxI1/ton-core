@@ -5,6 +5,51 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.56.3] - 2024-03-25
+
+## Fixed
+- Updated `typescript` to `5.4.3` and fixed compilation errors
+
+## [0.56.2] - 2024-03-19
+
+## Fixed
+- `getRepr` and `getRefsDescriptor` now using level mask instead of level
+- Cells with prunned branches hash and serialization fixes
+
+## [0.56.1] - 2024-02-27
+
+## Fixed
+- Fixed BoC serialization with indicies
+- Improve BoC serialization perfomance (thanks @krigga)
+
+Notes: BoC topological sort now is more like C++ impl, however there are still some differences. Tests in your project may fail after this update if you rely on serialized BoC.
+
+## [0.56.0] - 2024-02-23
+
+## Added
+- `ContractProvider.getTransactions` method
+- `ContractProvider.open` method
+
+## Removed
+- `ReopenableContractProvider`, `isReopenableContractProvider` due to inconvenience
+
+## [0.55.0] - 2024-02-12
+
+## Added
+- `ReopenableContractProvider` interface to allow reusing same provider for another contract
+- `isReopenableContractProvider` type guard to check if contract provider supports new API
+
+## [0.54.0] - 2024-01-29
+
+## Added
+- Added `exotic` flag to `Cell.endCell` args (thanks @Gusarich)
+
+## Fixed
+- Exotic cells in `storeMessageRelaxed`
+- Extracurrency edgecase for `storeMessage` (thanks @aSpite)
+- `AccountStatusChange` status parsing (thanks @TrueCarry)
+- type definitions for `StateInit` (thanks @Gusarich)
+
 ## [0.53.0] - 2023-10-24
 
 ## Added
@@ -16,10 +61,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `OutAction` and `OutList` (de)serializers (thanks @siandreev)
 
 ## Fixed
-
-- `Address.parse` regexp for raw addresses
 - `BitString.substring` now accepts `offset` == `str.length`
 
+## [0.52.2] - 2023-09-14
+
+## Fixed
+- `Address.isRaw` invalid address regexp
+
+## [0.52.1] - 2023-09-10
+
+## Fixed
+- ton-crypto replaced with @ton/crypto in build
 
 ## [0.52.0] - 2023-08-24
 
@@ -40,6 +92,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Fixed
 - `Address.parse`/`Address.parseRaw`/`Address.parseFriendly` now checks validity of address before parsing
 - `loadStringTail` crashed if the slice was partially read
+
+## [0.49.2] - 2023-07-14
+
+## Changed
+- Migrated to @ton/crypto package instead of ton-crypto
 
 ## [0.49.1] - 2023-05-10
 
